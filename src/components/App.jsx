@@ -2,7 +2,6 @@ import { GlobalStyle } from './GlobalStyle';
 import { Component } from 'react';
 import { SearchBar } from './SearchBar/SerachBar';
 import { ImageGallery } from './ImageGallery/ImageGallery';
-import { ImageGalleryItem } from './ImageGalleryItem/ImageGalleryItem';
 import { Button } from './Button/Button';
 import { fetchItem } from './api/api';
 
@@ -14,17 +13,18 @@ export class App extends Component {
     page: 1,
   };
 
-  async componentDidMount() {}
 
   async componentDidUpdate(prevProps, prevState) {
     const { query, page } = this.state;
 
     try {
       if (prevState.query !== query || prevState.page !== page) {
-        const request = await fetchItem(query, page);
-        this.setState({ images: request });
+        const requestedImages = await fetchItem(query, page);
+        this.setState({ images: requestedImages.hits });
       }
-    } catch (error) {} finally {}
+    } catch (error) {
+    } finally {
+    }
   }
 
   searchQueryHandler = evt => {
@@ -37,23 +37,28 @@ export class App extends Component {
     });
   };
 
-  handleLoadMore = () => {
-    this.setState(prevState => {
-      return {
-        page: prevState.page + 1,
-      };
-    });
-  };
   render() {
+    const { images } = this.state;
     return (
       <>
         <GlobalStyle />
         <SearchBar onSubmit={this.searchQueryHandler} />
-        <ImageGallery >
-          <ImageGalleryItem />
-        </ImageGallery>
+        {images.length > 0 ? (
+          <ImageGallery
+            images={images}
+          />
+        ) : (<b>placeholder</b>)}
         <Button />
       </>
     );
   }
 }
+
+
+  // handleLoadMore = () => {
+  //   this.setState(prevState => {
+  //     return {
+  //       page: prevState.page + 1,
+  //     };
+  //   });
+  // };

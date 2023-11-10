@@ -1,8 +1,8 @@
-export const ImageGalleryItem = () => {
+export const ImageGalleryItem = ({ alt, preview, large }) => {
   return (
     <>
       <li>
-        <img alt="" src="" />
+        <img alt={alt} src={preview} />
       </li>
     </>
   );
