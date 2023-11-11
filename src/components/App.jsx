@@ -9,7 +9,6 @@ import { fetchItem } from './api/api';
 import { Loader } from './Loader/Loader';
 
 export class App extends Component {
-
   state = {
     images: [],
     query: '',
@@ -34,35 +33,32 @@ export class App extends Component {
 
         const requestedImages = await fetchItem(searchQuery, page);
 
-
         const totalCards = requestedImages.totalHits;
         const totalPages = Math.ceil(totalCards / 12);
 
-        if (page === totalPages) { 
+        if (page === totalPages) {
           this.setState({
             isBtnShow: false,
-          })
-        };
+          });
+          toast.error('You have reached the end of the results.');
+        }
 
-
-        console.log(requestedImages);
-        
-
-
-        if (requestedImages.hits.length === 0 || page === totalPages +1) {
+        if (requestedImages.hits.length === 0) {
           toast.error('There are no results for your request');
           return;
         }
 
         this.setState(prevState => ({
-          images: prevState.images.length === 0 ?
-            requestedImages.hits : [...prevState.images, ...requestedImages.hits]
+          images:
+            prevState.images.length === 0
+              ? requestedImages.hits
+              : [...prevState.images, ...requestedImages.hits],
         }));
       }
     } catch (error) {
       toast.error('Ooops! Something went wrong. Try reloading page!');
     } finally {
-      // this.setState({ isLoading: false, });
+      this.setState({ isLoading: false, });
     }
   }
 
@@ -71,6 +67,7 @@ export class App extends Component {
 
     const searchQuery = evt.target.query.value;
     const query = searchQuery.toLowerCase();
+
     this.setState({
       query: `${Date.now()}/${query}`,
       page: 1,
