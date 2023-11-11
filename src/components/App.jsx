@@ -35,7 +35,7 @@ export class App extends Component {
 
         if (requestedImages.hits.length === 0) {
           toast.error('There are no results for your request');
-          this.setState({query: ''});
+          this.setState({ query: '' });
           return;
         }
 

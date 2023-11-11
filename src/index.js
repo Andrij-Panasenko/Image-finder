@@ -11,6 +11,7 @@ const theme = {
     orange: '#FFD466',
     boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.15)',
     background: '#f5f5f5',
+    headerBackground: '#6d3aa1',
   },
 
   tratsition: '200ms cubic-bezier(0.4,0,0.2,1)',
