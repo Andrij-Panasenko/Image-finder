@@ -8,7 +8,8 @@ export const List = styled.ul`
   margin-top: 0;
   margin-bottom: 0;
   padding: 0;
-  list-style: none;
-  margin-left: auto;
-  margin-right: auto;
+  padding-top: 20px;
+  padding-bottom: 20px;
+
+  margin: 0 auto;
 `;
