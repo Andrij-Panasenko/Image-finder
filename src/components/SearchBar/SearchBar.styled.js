@@ -54,6 +54,11 @@ export const Button = styled.button`
   background-color: ${p => p.theme.colors.orange};
   transition: background-color ${p => p.theme.tratsition};
 
+  font-family: inherit;
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 500;
+
   &:hover,
   &:focus {
     background-color: #f59d56;
