@@ -24,7 +24,6 @@ export const ImageModal = ({ isOpen, onClose, large, alt }) => {
       >
         <img alt={alt} src={large} />
       </Modal>
-      ;
     </>
   );
 };
