@@ -20,27 +20,25 @@ export class App extends Component {
   async componentDidUpdate(prevProps, prevState) {
     const { query, page } = this.state;
 
-    const searchQuery = query.split('/')[1].trim();
+    if (prevState.query !== query || prevState.page !== page) {
+      const searchQuery = query.split('/')[1].trim();
 
-    if (searchQuery === '') {
-      toast.error('Search field should be filled');
-      return;
-    }
+      if (searchQuery === '') {
+        toast.error('Search field should be filled');
+        return;
+      };
 
-    try {
-      if (prevState.query !== query || prevState.page !== page) {
-        this.setState({ isLoading: true });
+      this.setState({ isLoading: true });
 
+      try {
         const requestedImages = await fetchItem(searchQuery, page);
 
         const totalCards = requestedImages.totalHits;
         const totalPages = Math.ceil(totalCards / 12);
 
         if (page === totalPages) {
-          this.setState({
-            isBtnShow: false,
-          });
-          toast.error('You have reached the end of the results.');
+          this.setState({isBtnShow: false});
+          toast.error('You have reached the end of the search.');
         }
 
         if (requestedImages.hits.length === 0) {
@@ -54,11 +52,11 @@ export class App extends Component {
               ? requestedImages.hits
               : [...prevState.images, ...requestedImages.hits],
         }));
+      } catch (error) {
+        toast.error('Ooops! Something went wrong. Try reloading page!');
+      } finally {
+        this.setState({ isLoading: false });
       }
-    } catch (error) {
-      toast.error('Ooops! Something went wrong. Try reloading page!');
-    } finally {
-      this.setState({ isLoading: false, });
     }
   }
 
