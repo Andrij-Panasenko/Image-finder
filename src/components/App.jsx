@@ -26,7 +26,7 @@ export class App extends Component {
       if (searchQuery === '') {
         toast.error('Search field should be filled');
         return;
-      };
+      }
 
       this.setState({ isLoading: true });
 
@@ -37,8 +37,8 @@ export class App extends Component {
         const totalPages = Math.ceil(totalCards / 12);
 
         if (page === totalPages) {
-          this.setState({isBtnShow: false});
-          toast.error('You have reached the end of the search.');
+          this.setState({ isBtnShow: false });
+          toast('You have reached the end of the search.', { icon: '🚩' });
         }
 
         if (requestedImages.hits.length === 0) {
