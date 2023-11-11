@@ -6,7 +6,7 @@ import { SearchBar } from './SearchBar/SerachBar';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Button } from './Button/Button';
 import { fetchItem } from './api/api';
-// import { Loader } from './Loader/Loader';
+import { Loader } from './Loader/Loader';
 
 export class App extends Component {
   state = {
@@ -29,7 +29,7 @@ export class App extends Component {
 
     try {
       if (prevState.query !== query || prevState.page !== page) {
-        // this.setState({ isLoading: true });
+        this.setState({ isLoading: true });
 
         const requestedImages = await fetchItem(searchQuery, page);
 
@@ -44,7 +44,7 @@ export class App extends Component {
     } catch (error) {
       toast.error('Ooops! Something went wrong. Try reloading page!');
     } finally {
-      // this.setState({ isLoading: false });
+      this.setState({ isLoading: false });
     }
   }
 
@@ -75,7 +75,7 @@ export class App extends Component {
         <GlobalStyle />
         <Toaster />
         <SearchBar onSubmit={this.searchQueryHandler} />
-        {/* {isLoading && <Loader />} */}
+        {isLoading && <Loader />}
         {images.length > 0 && (
           <>
             <ImageGallery images={images} />
