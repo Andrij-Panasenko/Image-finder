@@ -8,25 +8,23 @@ export const Header = styled.header`
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 64px;
-  padding-right: 24px;
-  padding-left: 24px;
-  padding-top: 12px;
-  padding-bottom: 12px;
-  color: #fff;
-  background-color: ${p=>p.theme.colors.headerBackground};
-  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
-    0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  min-height: ${p => p.theme.spacing(32)};
+  padding-right: ${p => p.theme.spacing(12)};
+  padding-left: ${p => p.theme.spacing(12)};
+  padding-top: ${p => p.theme.spacing(6)};
+  padding-bottom: ${p => p.theme.spacing(6)};
+  color: ${p=>p.theme.colors.white};
+  background-color: ${p => p.theme.colors.headerBackground};
+  box-shadow: ${p=>p.theme.colors.boxShadow};
 `;
 
-//поки потерпить
 export const Form = styled.form`
   display: flex;
   align-items: center;
   width: 100%;
   max-width: 600px;
-  background-color: #fff;
-  border-radius: 10px;
+  background-color: ${p => p.theme.colors.white};
+  border-radius: ${p => p.theme.spacing(5)};
   overflow: hidden;
 `;
 
@@ -37,8 +35,8 @@ export const Input = styled.input`
   font-size: 20px;
   border: none;
   outline: none;
-  padding-left: 4px;
-  padding-right: 4px;
+  padding-left: ${p => p.theme.spacing(5)};
+  padding-right: ${p => p.theme.spacing(5)};
 
   &::placeholder {
     font: inherit;
@@ -52,5 +50,5 @@ export const Button = styled.button`
   height: 40px;
   outline: none;
   border: none;
-  border-radius: 10px;
+  border-radius: ${p => p.theme.spacing(5)};
 `;
