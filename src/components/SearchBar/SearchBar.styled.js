@@ -51,4 +51,11 @@ export const Button = styled.button`
   outline: none;
   border: none;
   border-radius: ${p => p.theme.spacing(5)};
+  background-color: ${p => p.theme.colors.orange};
+  transition: background-color ${p => p.theme.tratsition};
+
+  &:hover,
+  &:focus {
+    background-color: #f59d56;
+  }
 `;
