@@ -6,13 +6,15 @@ import { SearchBar } from './SearchBar/SerachBar';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Button } from './Button/Button';
 import { fetchItem } from './api/api';
-// import { Loader } from './Loader/Loader';
+import { Loader } from './Loader/Loader';
 
 export class App extends Component {
+
   state = {
     images: [],
     query: '',
-    // isLoading: false,
+    isBtnShow: true,
+    isLoading: false,
     page: 1,
   };
 
@@ -28,16 +30,19 @@ export class App extends Component {
 
     try {
       if (prevState.query !== query || prevState.page !== page) {
-        // this.setState({ isLoading: true });
+        this.setState({ isLoading: true });
 
         const requestedImages = await fetchItem(searchQuery, page);
 
 
         const totalCards = requestedImages.totalHits;
         const totalPages = Math.ceil(totalCards / 12);
-        // console.log('totalPages', totalPages)
-        // console.log('page', page)
-        // console.log('totalCards', totalCards)
+
+        if (page === totalPages) { 
+          this.setState({
+            isBtnShow: false,
+          })
+        };
 
 
         console.log(requestedImages);
@@ -57,7 +62,7 @@ export class App extends Component {
     } catch (error) {
       toast.error('Ooops! Something went wrong. Try reloading page!');
     } finally {
-      // this.setState({ isLoading: false });
+      // this.setState({ isLoading: false, });
     }
   }
 
@@ -70,6 +75,7 @@ export class App extends Component {
       query: `${Date.now()}/${query}`,
       page: 1,
       images: [],
+      isBtnShow: true,
     });
   };
 
@@ -82,18 +88,18 @@ export class App extends Component {
   };
 
   render() {
-    const { images, isLoading } = this.state;
+    const { images, isLoading, isBtnShow } = this.state;
 
     return (
       <>
         <GlobalStyle />
         <Toaster />
         <SearchBar onSubmit={this.searchQueryHandler} />
-        {/* {isLoading && <Loader />} */}
+        {isLoading && <Loader />}
         {images.length > 0 && (
           <>
             <ImageGallery images={images} />
-            <Button onLoad={this.handleLoadMore} />
+            {isBtnShow && <Button onLoad={this.handleLoadMore} />}
           </>
         )}
       </>
