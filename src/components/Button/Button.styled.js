@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const LoadMoreBtn = styled.button`
-  margin: 0 auto;
+  margin: 0 auto 20px auto;
   padding: 8px 16px;
   border-radius: 2px;
   background-color: ${p => p.theme.colors.loadMoreBcg};
